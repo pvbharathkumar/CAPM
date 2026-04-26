@@ -1,0 +1,16 @@
+
+# local/build artifacts
+CAPM/
+node_modules/
+mta-op-*/
+mta_archives/
+db.sqlite*
+gen/
+
+# local/build artifacts
+CAPM/
+node_modules/
+mta-op-*/
+mta_archives/
+db.sqlite*
+gen/
