@@ -1,0 +1,4 @@
+ID,code,description,netDays,discountDays,discountPct
+9c4g0h2b-4d5e-4f60-9123-282930313233,NET30,Net 30 Days,30,10,2.00
+a0d1e2f3-5a6b-4c71-9234-343536373839,NET45,Net 45 Days,45,15,1.50
+b1e2f3a4-6b7c-4d82-9345-404142434445,NET60,Net 60 Days,60,20,1.00
