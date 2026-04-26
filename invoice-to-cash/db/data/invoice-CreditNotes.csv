@@ -1,0 +1,3 @@
+ID,invoice_ID,creditNoteNumber,issueDate,amount,reason,status
+n1b2c3d4-0001-0000-0000-000000000001,c2f3a4b5-7c8d-4e93-9456-464748494a4b,CN-2026-001,2026-04-18,250.00,Discount adjustment for early commitment,Applied
+n1b2c3d4-0002-0000-0000-000000000002,d3a4b5c6-8d9e-4f04-9567-4a4b4c4d4e4f,CN-2026-002,2026-04-20,400.00,Returned defective network switch,Applied
