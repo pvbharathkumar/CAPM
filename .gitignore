@@ -20,3 +20,8 @@ mta_archives/
 
 # auto generated wildcard
 db/.env
+# local/build artifacts
+CAPM/
+**/dist/
+db.sqlite-*
+mta-op-*/
