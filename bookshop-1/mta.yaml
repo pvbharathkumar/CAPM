@@ -157,8 +157,6 @@ resources:
               - '$XSAPPNAME.admin'
     requires:
       - name: app-api
-    processed-after:
-      - bookshop-1-messaging
   - name: bookshop-1-db
     type: com.sap.xs.hdi-container
     parameters:
