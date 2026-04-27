@@ -25,13 +25,34 @@
     "requires": {
       "auth": {
         "kind": "mocked",
-        "users": {
-          "bharathpvk@gmail.com": {
+        "users": {          
+          "admin@test.com": {
             "roles": [
               "admin"
             ]
+          },
+          "viewer@test.com": {
+            "roles": [
+              "viewer"
+            ]
+          },
+          "enterprise@test.com": {
+            "roles": [
+              "Sales_Enterprise"
+            ]
+          },
+          "smb@test.com": {
+            "roles": [
+              "Sales_SMB"
+            ]
+          },
+          "wholesale@test.com": {
+            "roles": [
+              "Sales_Wholesale"
+            ]
           }
-        }
+        },
+        "defaultUser": "admin@test.com"
       },
       "db-ext": {
         "[development]": {

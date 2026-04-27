@@ -20,3 +20,7 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at <https://cap.cloud.sap>.
+
+## Interview questions:
+1. How CAP Authorization Works?
+User logs in → IAS/XSUAA assigns Role → CAP checks @restrict annotation → Allow/Deny

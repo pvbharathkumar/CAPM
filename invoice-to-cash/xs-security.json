@@ -2,16 +2,64 @@
   "scopes": [
     {
       "name": "$XSAPPNAME.admin",
-      "description": "admin"
+      "description": "Full access to all data"
+    },
+    {
+      "name": "$XSAPPNAME.viewer",
+      "description": "Read-only access to all data"
+    },
+    {
+      "name": "$XSAPPNAME.Sales_Enterprise",
+      "description": "Access to Enterprise customer group only"
+    },
+    {
+      "name": "$XSAPPNAME.Sales_SMB",
+      "description": "Access to SMB customer group only"
+    },
+    {
+      "name": "$XSAPPNAME.Sales_Wholesale",
+      "description": "Access to Wholesale customer group only"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
       "name": "admin",
-      "description": "generated",
+      "description": "Full access to all data",
       "scope-references": [
         "$XSAPPNAME.admin"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "viewer",
+      "description": "Read-only access",
+      "scope-references": [
+        "$XSAPPNAME.viewer"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Sales_Enterprise",
+      "description": "Enterprise customer group access",
+      "scope-references": [
+        "$XSAPPNAME.Sales_Enterprise"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Sales_SMB",
+      "description": "SMB customer group access",
+      "scope-references": [
+        "$XSAPPNAME.Sales_SMB"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Sales_Wholesale",
+      "description": "Wholesale customer group access",
+      "scope-references": [
+        "$XSAPPNAME.Sales_Wholesale"
       ],
       "attribute-references": []
     }
