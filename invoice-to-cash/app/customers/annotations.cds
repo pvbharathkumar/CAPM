@@ -27,10 +27,12 @@ annotate CatalogService.Customers with @(
       { $Type : 'UI.DataField', Value : name          },
       { $Type : 'UI.DataField', Value : customerGroup },
       { $Type : 'UI.DataField', Value : email         },
-      { $Type : 'UI.DataField', Value : phone         },
-      { $Type : 'UI.DataField', Value : address       },
-      { $Type : 'UI.DataField', Value : creditLimit   },
-      { $Type : 'UI.DataField', Value : createdAt     }
+      { $Type : 'UI.DataField', Value : phone,
+        Label : '{i18n>Phone}',         },
+      { $Type : 'UI.DataField', Value : address,
+        Label : '{i18n>Address}',       },
+      { $Type : 'UI.DataField', Value : creditLimit,
+        Label : '{i18n>CreditLimit}',   }      
     ]
   },
 
@@ -38,7 +40,12 @@ annotate CatalogService.Customers with @(
     $Type  : 'UI.ReferenceFacet',
     Label  : 'Customer Details',
     Target : '@UI.FieldGroup#CustomerDetails'
-  }]
+  }],
+
+  UI.CreateHidden : false,
+  UI.DeleteHidden: false,
+  UI.UpdateHidden : false,
+
 );
 annotate CatalogService.Customers with {
     customerGroup @Common.Label : '{i18n>CustomerGroup}'

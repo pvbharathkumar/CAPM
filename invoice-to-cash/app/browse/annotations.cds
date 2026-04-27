@@ -2,6 +2,10 @@ using CatalogService from '../../srv/cat-service';
 
 // ── Invoices List Report ──────────────────────────────────
 annotate CatalogService.Invoices with @(
+ 
+  UI.CreateHidden : false,
+  UI.DeleteHidden : false,
+  UI.UpdateHidden : false,
 
   UI.SelectionFields : [ invoiceNumber, status, issueDate ],
 
@@ -13,7 +17,12 @@ annotate CatalogService.Invoices with @(
     { $Type : 'UI.DataField', Value : totalAmount,       Label : 'Total Amount'   },
     { $Type : 'UI.DataField', Value : paidAmount,        Label : 'Paid Amount'    },
     { $Type : 'UI.DataField', Value : outstandingAmount, Label : 'Outstanding'    },
-    { $Type : 'UI.DataField', Value : status,            Label : 'Status'         }
+    { $Type : 'UI.DataField', Value : status,            Label : 'Status'         },
+    {
+      $Type : 'UI.DataField',
+      Value : IsActiveEntity,
+      Label : 'Status'
+    }
   ],
 
   UI.HeaderInfo : {
@@ -28,7 +37,7 @@ annotate CatalogService.Invoices with @(
     Label : 'Invoice Details',
     Data  : [
       { $Type : 'UI.DataField', Value : invoiceNumber     },
-      { $Type : 'UI.DataField', Value : customer_ID       },
+      { $Type : 'UI.DataField', Value : customer_ID, Label  : 'Customer'       },
       { $Type : 'UI.DataField', Value : issueDate         },
       { $Type : 'UI.DataField', Value : dueDate           },
       { $Type : 'UI.DataField', Value : currency          },
@@ -96,6 +105,7 @@ annotate CatalogService.Invoices with @(
 
 // ── InvoiceItems ──────────────────────────────────────────
 annotate CatalogService.InvoiceItems with @(
+  UI.SelectionFields  : [ productCode, description ],
   UI.LineItem #InvoiceItems : [
     { $Type : 'UI.DataField', Value : productCode, Label : 'Product Code' },
     { $Type : 'UI.DataField', Value : description, Label : 'Description'  },
@@ -104,11 +114,39 @@ annotate CatalogService.InvoiceItems with @(
     { $Type : 'UI.DataField', Value : discountPct, Label : 'Discount %'   },
     { $Type : 'UI.DataField', Value : taxRate,     Label : 'Tax Rate %'   },
     { $Type : 'UI.DataField', Value : lineTotal,   Label : 'Line Total'   }
-  ]
+  ],
+
+  UI.HeaderInfo: { TypeName : 'Invoice Item', 
+  TypeNamePlural: 'Invoice Items',
+  Title: { $Type : 'UI.DataField', value: 'Product Code'},
+  Description : { $Type : 'ui.DataField', Value : description }  
+  },
+
+  UI.FieldGroup #ItemDetails : {
+    $Type : 'UI.FieldGroupType',
+    Label : 'Item Details',
+    Data  : [
+      { $Type : 'UI.DataField', Value : productCode },
+      { $Type : 'UI.DataField', Value : description },
+      { $Type : 'UI.DataField', Value : quantity    },
+      { $Type : 'UI.DataField', Value : unitPrice   },
+      { $Type : 'UI.DataField', Value : discountPct },
+      { $Type : 'UI.DataField', Value : taxRate     },
+      { $Type : 'UI.DataField', Value : lineTotal   }
+    ]
+  },
+
+  UI.Facets : [{
+    $Type  : 'UI.ReferenceFacet',
+    Label  : 'Item Details',
+    Target : '@UI.FieldGroup#ItemDetails'
+  }]
 );
 
 // ── Payments ──────────────────────────────────────────────
 annotate CatalogService.Payments with @(
+  UI.SelectionFields : [ paymentMethod, status ],
+
   UI.LineItem #Payments : [
     { $Type : 'UI.DataField', Value : paymentDate,   Label : 'Payment Date'   },
     { $Type : 'UI.DataField', Value : amountPaid,    Label : 'Amount Paid'    },
@@ -116,18 +154,70 @@ annotate CatalogService.Payments with @(
     { $Type : 'UI.DataField', Value : bankReference, Label : 'Bank Reference' },
     { $Type : 'UI.DataField', Value : receivedBy,    Label : 'Received By'    },
     { $Type : 'UI.DataField', Value : status,        Label : 'Status'         }
-  ]
+  ],
+
+  UI.HeaderInfo : {
+    TypeName       : 'Payment',
+    TypeNamePlural : 'Payments',
+    Title          : { $Type : 'UI.DataField', Value : paymentMethod },
+    Description    : { $Type : 'UI.DataField', Value : status        }
+  },
+
+  UI.FieldGroup #PaymentDetails : {
+    $Type : 'UI.FieldGroupType',
+    Label : 'Payment Details',
+    Data  : [
+      { $Type : 'UI.DataField', Value : paymentDate   },
+      { $Type : 'UI.DataField', Value : amountPaid    },
+      { $Type : 'UI.DataField', Value : paymentMethod },
+      { $Type : 'UI.DataField', Value : bankReference },
+      { $Type : 'UI.DataField', Value : receivedBy    },
+      { $Type : 'UI.DataField', Value : status        }
+    ]
+  },
+
+  UI.Facets : [{
+    $Type  : 'UI.ReferenceFacet',
+    Label  : 'Payment Details',
+    Target : '@UI.FieldGroup#PaymentDetails'
+  }]
 );
 
 // ── CreditNotes ───────────────────────────────────────────
 annotate CatalogService.CreditNotes with @(
+  UI.SelectionFields : [ creditNoteNumber, status ],
   UI.LineItem #CreditNotes : [
     { $Type : 'UI.DataField', Value : creditNoteNumber, Label : 'Credit Note #' },
     { $Type : 'UI.DataField', Value : issueDate,        Label : 'Issue Date'    },
     { $Type : 'UI.DataField', Value : amount,           Label : 'Amount'        },
     { $Type : 'UI.DataField', Value : reason,           Label : 'Reason'        },
     { $Type : 'UI.DataField', Value : status,           Label : 'Status'        }
-  ]
+  ],
+
+  UI.HeaderInfo : {
+    TypeName       : 'Credit Note',
+    TypeNamePlural : 'Credit Notes',
+    Title          : { $Type : 'UI.DataField', Value : creditNoteNumber },
+    Description    : { $Type : 'UI.DataField', Value : status           }
+  },
+
+  UI.FieldGroup #CreditNoteDetails : {
+    $Type : 'UI.FieldGroupType',
+    Label : 'Credit Note Details',
+    Data  : [
+      { $Type : 'UI.DataField', Value : creditNoteNumber },
+      { $Type : 'UI.DataField', Value : issueDate        },
+      { $Type : 'UI.DataField', Value : amount           },
+      { $Type : 'UI.DataField', Value : reason           },
+      { $Type : 'UI.DataField', Value : status           }
+    ]
+  },
+
+  UI.Facets : [{
+    $Type  : 'UI.ReferenceFacet',
+    Label  : 'Credit Note Details',
+    Target : '@UI.FieldGroup#CreditNoteDetails'
+  }]
 );
 
 // ── PaymentTerms ──────────────────────────────────────────
